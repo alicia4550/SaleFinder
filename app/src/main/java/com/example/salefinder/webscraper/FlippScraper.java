@@ -1,7 +1,7 @@
 package com.example.salefinder.webscraper;
 
-import com.example.salefinder.model.Flyer;
-import com.example.salefinder.model.Item;
+import com.example.salefinder.entity.Flyer;
+import com.example.salefinder.entity.Item;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,7 +18,7 @@ import okhttp3.Response;
 public class FlippScraper {
     public static Flyer[] flyersArray;
 
-    public static void GetAllFlyers() {
+    public static Flyer[] GetAllFlyers() {
         HttpUrl.Builder urlBuilder
                 = HttpUrl.parse("https://cdn-gateflipp.flippback.com/bf/flipp/data").newBuilder();
         urlBuilder.addQueryParameter("locale", "en-ca")
@@ -46,17 +46,7 @@ public class FlippScraper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static ArrayList<Integer> GetFlyerIds(ArrayList<String> merchants) {
-        ArrayList<Integer> flyerIds = new ArrayList<>();
-        for (Flyer flyer : flyersArray) {
-            if (merchants.contains(flyer.getMerchant())) {
-                flyerIds.add(flyer.getId());
-                System.out.println(flyer.getMerchant() + ": " + flyer.getId());
-            }
-        }
-        return flyerIds;
+        return flyersArray;
     }
 
     public static void GetProducts(int flyerId) {
@@ -82,30 +72,25 @@ public class FlippScraper {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode flyerObj = mapper.readTree(flyerString);
 
-            System.out.println(flyerObj);
-
             Item[] itemsArray = mapper.readValue(flyerObj.findValue("items").toString(), Item[].class);
-
-            for (Item item : itemsArray) {
-                System.out.println(item.getName());
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-        ArrayList<String> merchants = new ArrayList<String>(
-                Arrays.asList("FreshCo",
-                        "Food Basics",
-                        "No Frills",
-                        "Walmart"));
-
-        GetAllFlyers();
-        ArrayList<Integer> flyerIds = GetFlyerIds(merchants);
-        for (Integer i : flyerIds) {
-            System.out.println((i));
-        }
+//        ArrayList<String> merchants = new ArrayList<String>(
+//                Arrays.asList("FreshCo",
+//                        "Food Basics",
+//                        "No Frills",
+//                        "Walmart"));
+//
+//        Flyer[] flyers = GetAllFlyers();
+//        System.out.println(flyers.length);
+//        ArrayList<Integer> flyerIds = GetFlyerIds(merchants);
+//        for (Integer i : flyerIds) {
+//            System.out.println((i));
+//        }
 //        GetProducts(5970294);
     }
 }

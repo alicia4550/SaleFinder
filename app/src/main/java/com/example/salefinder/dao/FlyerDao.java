@@ -3,6 +3,7 @@ package com.example.salefinder.dao;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -26,6 +27,9 @@ public interface FlyerDao {
 
     @Insert
     void insertFlyers(Flyer... flyers);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAllFlyers(List<Flyer> flyer);
 
     @Update
     void update(Flyer flyer);

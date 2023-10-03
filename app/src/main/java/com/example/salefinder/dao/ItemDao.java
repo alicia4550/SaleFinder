@@ -3,9 +3,11 @@ package com.example.salefinder.dao;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.salefinder.entity.Flyer;
 import com.example.salefinder.entity.Item;
 
 import java.util.List;
@@ -26,6 +28,9 @@ public interface ItemDao {
 
     @Insert
     void insertItems(Item... items);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAllItems(List<Item> items);
 
     @Update
     void update(Item item);

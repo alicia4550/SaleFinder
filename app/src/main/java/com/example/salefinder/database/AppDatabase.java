@@ -12,4 +12,6 @@ import com.example.salefinder.entity.Item;
 public abstract class AppDatabase extends RoomDatabase {
     public abstract FlyerDao flyerDao();
     public abstract ItemDao itemDao();
+
+    public static final String NAME = "AppDataBase";
 }

@@ -26,23 +26,14 @@ public interface ItemDao {
     @Insert
     void insert(Item item);
 
-    @Insert
-    void insertItems(Item... items);
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAllItems(List<Item> items);
 
     @Update
     void update(Item item);
 
-    @Update
-    void updateItems(Item... items);
-
     @Delete
     void delete(Item item);
-
-    @Delete
-    void deleteItems(Item... items);
 
 }
 

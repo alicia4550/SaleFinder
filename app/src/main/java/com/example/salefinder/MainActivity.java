@@ -2,7 +2,13 @@ package com.example.salefinder;
 
 import android.os.Bundle;
 
+import com.example.salefinder.component.AppComponent;
+import com.example.salefinder.component.DaggerAppComponent;
 import com.example.salefinder.database.AppDatabase;
+import com.example.salefinder.module.AppModule;
+import com.example.salefinder.module.DatabaseModule;
+import com.example.salefinder.repository.FlyerRepository;
+import com.example.salefinder.repository.ItemRepository;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,16 +26,30 @@ import com.example.salefinder.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import javax.inject.Inject;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-    private AppDatabase db;
+//    private AppComponent appComponent;
+    @Inject
+    public FlyerRepository flyerRepository;
+
+    @Inject
+    public ItemRepository itemRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        appComponent =  ()
+        DaggerAppComponent.builder()
+                .appModule(new AppModule(getApplication()))
+                .databaseModule(new DatabaseModule(getApplication()))
+                .build()
+                .inject(this);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -39,9 +59,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "database-name").build();
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override

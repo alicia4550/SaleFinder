@@ -3,6 +3,7 @@ plugins {
 }
 
 android {
+    compileOptions.incremental = false
     compileSdk 33
 
     defaultConfig {

@@ -25,23 +25,14 @@ public interface FlyerDao {
     @Insert
     void insert(Flyer flyer);
 
-    @Insert
-    void insertFlyers(Flyer... flyers);
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAllFlyers(List<Flyer> flyer);
+    void insertAllFlyers(List<Flyer> flyers);
 
     @Update
     void update(Flyer flyer);
 
-    @Update
-    void updateFlyers(Flyer... flyers);
-
     @Delete
     void delete(Flyer flyer);
-
-    @Delete
-    void deleteFlyers(Flyer... flyers);
 
 }
 

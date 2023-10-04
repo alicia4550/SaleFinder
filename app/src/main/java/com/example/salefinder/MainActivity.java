@@ -60,8 +60,10 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                System.out.println("Getting flyers from Flipp...");
                 List<Flyer> flyers = WebScraperService.getAllFlyers();
                 flyerRepository.insertAllFlyers(flyers);
+                System.out.println("Saved flyers from Flipp");
             }
         }).start();
 

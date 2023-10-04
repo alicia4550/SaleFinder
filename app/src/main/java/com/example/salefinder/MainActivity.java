@@ -5,10 +5,12 @@ import android.os.Bundle;
 import com.example.salefinder.component.AppComponent;
 import com.example.salefinder.component.DaggerAppComponent;
 import com.example.salefinder.database.AppDatabase;
+import com.example.salefinder.entity.Flyer;
 import com.example.salefinder.module.AppModule;
 import com.example.salefinder.module.DatabaseModule;
 import com.example.salefinder.repository.FlyerRepository;
 import com.example.salefinder.repository.ItemRepository;
+import com.example.salefinder.service.WebScraperService;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +27,8 @@ import com.example.salefinder.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -44,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        appComponent =  ()
         DaggerAppComponent.builder()
                 .appModule(new AppModule(getApplication()))
                 .databaseModule(new DatabaseModule(getApplication()))
@@ -53,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<Flyer> flyers = WebScraperService.getAllFlyers();
+                flyerRepository.insertAllFlyers(flyers);
+            }
+        }).start();
 
         setSupportActionBar(binding.toolbar);
 

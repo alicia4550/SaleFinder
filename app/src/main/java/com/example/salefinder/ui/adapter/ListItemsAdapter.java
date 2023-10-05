@@ -56,8 +56,7 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
         View contactView = inflater.inflate(R.layout.recycler_list_items, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     // Involves populating data into the item through holder

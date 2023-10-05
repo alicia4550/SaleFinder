@@ -11,8 +11,6 @@ import java.util.Objects;
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Flyer {
-//    @PrimaryKey
-//    public int id;
 
     @PrimaryKey
     @ColumnInfo(name = "id")
@@ -48,14 +46,8 @@ public class Flyer {
     @ColumnInfo(name = "path")
     public String path;
 
-//    @ColumnInfo(name = "resolutions")
-//    public int[] resolutions;
-
     @ColumnInfo(name = "resolutions_csv")
     public String resolutions_csv;
-
-//    @ColumnInfo(name = "categories")
-//    public String[] categories;
 
     @ColumnInfo(name = "categories_csv")
     public String categories_csv;
@@ -110,9 +102,6 @@ public class Flyer {
 
     @ColumnInfo(name = "seed")
     public float seed;
-
-//    @ColumnInfo(name = "featured_items")
-//    public String[] featured_items;
 
     @ColumnInfo(name = "analytics_payload")
     public String analytics_payload;

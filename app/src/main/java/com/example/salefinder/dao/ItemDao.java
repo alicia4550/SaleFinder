@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.salefinder.entity.Flyer;
 import com.example.salefinder.entity.Item;
 
 import java.util.List;

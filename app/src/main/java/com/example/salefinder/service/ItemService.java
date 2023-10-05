@@ -2,10 +2,8 @@ package com.example.salefinder.service;
 
 import com.example.salefinder.dao.ItemDao;
 import com.example.salefinder.database.AppDatabase;
-import com.example.salefinder.entity.Flyer;
 import com.example.salefinder.entity.Item;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ItemService {

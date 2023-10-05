@@ -50,8 +50,7 @@ public class SalesItemsAdapter extends RecyclerView.Adapter<SalesItemsAdapter.Vi
         View contactView = inflater.inflate(R.layout.recycler_sales_items, parent, false);
 
         // Return a new holder instance
-        SalesItemsAdapter.ViewHolder viewHolder = new SalesItemsAdapter.ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     // Involves populating data into the item through holder

@@ -11,8 +11,6 @@ import java.util.Objects;
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Item {
-//    @PrimaryKey
-//    public int iid;
 
     @PrimaryKey
     @ColumnInfo(name = "id")
@@ -65,9 +63,6 @@ public class Item {
 
     @ColumnInfo(name = "video_url")
     public String video_url;
-
-//    @ColumnInfo(name = "text_areas")
-//    public String[] text_areas;
 
     @ColumnInfo(name = "cutout_image_url")
     public String cutout_image_url;

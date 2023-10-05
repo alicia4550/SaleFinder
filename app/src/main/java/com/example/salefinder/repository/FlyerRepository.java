@@ -1,12 +1,5 @@
 package com.example.salefinder.repository;
 
-import androidx.lifecycle.LiveData;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-import androidx.room.Update;
-
 import com.example.salefinder.dao.FlyerDao;
 import com.example.salefinder.entity.Flyer;
 

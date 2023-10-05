@@ -16,11 +16,6 @@ public class Merchant {
         this.salesItemList = new ArrayList<>();
     }
 
-//    public Merchant(String name, List<SalesItem> salesItemList) {
-//        this.name = name;
-//        this.salesItemList = salesItemList;
-//    }
-
     public String getName() {
         return name;
     }

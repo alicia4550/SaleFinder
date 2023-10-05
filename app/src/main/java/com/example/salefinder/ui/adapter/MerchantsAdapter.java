@@ -24,7 +24,6 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
         {
             super(itemView);
 
-//            itemNameTextView = (TextView) itemView.findViewById(R.id.item_name);
             merchantTextView = (TextView) itemView.findViewById(R.id.merchant_name);
             salesItemRecyclerView = itemView.findViewById(R.id.recycler_sales_items);
         }
@@ -50,8 +49,7 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
         View contactView = inflater.inflate(R.layout.recycler_merchants, parent, false);
 
         // Return a new holder instance
-        MerchantsAdapter.ViewHolder viewHolder = new MerchantsAdapter.ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     // Involves populating data into the item through holder

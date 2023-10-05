@@ -11,9 +11,10 @@ import java.util.Objects;
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Flyer {
-    @PrimaryKey
-    public int fid;
+//    @PrimaryKey
+//    public int id;
 
+    @PrimaryKey
     @ColumnInfo(name = "id")
     public int id;
 

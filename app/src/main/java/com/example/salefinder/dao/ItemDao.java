@@ -23,7 +23,10 @@ public interface ItemDao {
     @Query("SELECT * FROM item WHERE flyer_id = :flyerId")
     List<Item> findByFlyerId(int flyerId);
 
-    @Insert
+    @Query("SELECT * FROM item WHERE flyer_id = :flyerId AND name LIKE '%' || :name || '%'")
+    List<Item> findByFlyerIdAndName(int flyerId, String name);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Item item);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

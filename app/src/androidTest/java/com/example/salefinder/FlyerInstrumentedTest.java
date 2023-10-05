@@ -47,4 +47,13 @@ public class FlyerInstrumentedTest {
         assertTrue(byMerchant.get(0).equals(flyer));
     }
 
+    @Test
+    public void testFindFlyerIdByMerchant() {
+        Flyer flyer = TestUtil.createFlyer(1234, "Freshco");
+        flyerDao.insert(flyer);
+        List<Integer> ids = flyerDao.findFlyerIdByMerchant("Freshco");
+        assertEquals(1, ids.size());
+        assertEquals((Integer) 1234, ids.get(0));
+    }
+
 }

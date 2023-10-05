@@ -2,32 +2,32 @@ package com.example.salefinder;
 
 import android.os.Bundle;
 
-import com.example.salefinder.component.AppComponent;
 import com.example.salefinder.component.DaggerAppComponent;
-import com.example.salefinder.database.AppDatabase;
 import com.example.salefinder.entity.Flyer;
+import com.example.salefinder.entity.Item;
 import com.example.salefinder.module.AppModule;
 import com.example.salefinder.module.DatabaseModule;
 import com.example.salefinder.repository.FlyerRepository;
 import com.example.salefinder.repository.ItemRepository;
 import com.example.salefinder.service.WebScraperService;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.salefinder.ui.model.ListItem;
+import com.example.salefinder.ui.model.Merchant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.room.Room;
 
 import com.example.salefinder.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,12 +37,15 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-//    private AppComponent appComponent;
     @Inject
     public FlyerRepository flyerRepository;
 
     @Inject
     public ItemRepository itemRepository;
+
+    public List<Merchant> merchantList;
+
+    public List<ListItem> listItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,29 +60,39 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                System.out.println("Getting flyers from Flipp...");
-//                List<Flyer> flyers = WebScraperService.getAllFlyers();
-//                flyerRepository.insertAllFlyers(flyers);
-//                System.out.println("Saved flyers from Flipp");
-//            }
-//        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Getting flyers from Flipp...");
+                List<Flyer> flyers = WebScraperService.getAllFlyers();
+                for (Flyer flyer : flyers) {
+                    flyerRepository.insert(flyer);
+                }
+                System.out.println("Saved flyers from Flipp");
+
+                System.out.println("Getting items from flyers...");
+                List<String> merchantNames = Arrays.asList("No Frills", "Walmart");
+                merchantList = new ArrayList<>();
+                for (String merchantName : merchantNames) {
+                    List<Integer> flyerIds = flyerRepository.findFlyerIdByMerchant(merchantName);
+                    merchantList.add(new Merchant(merchantName, flyerIds));
+
+                    for (int flyerId : flyerIds) {
+                        List<Item> itemList = WebScraperService.getAllItemsByFlyer(flyerId);
+                        for (Item item : itemList) {
+                            itemRepository.insert(item);
+                        }
+                    }
+                }
+                System.out.println("Saved items from flyers");
+            }
+        }).start();
 
         setSupportActionBar(binding.toolbar);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-//        binding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     @Override

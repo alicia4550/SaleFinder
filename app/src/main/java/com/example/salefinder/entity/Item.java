@@ -11,9 +11,10 @@ import java.util.Objects;
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Item {
-    @PrimaryKey
-    public int iid;
+//    @PrimaryKey
+//    public int iid;
 
+    @PrimaryKey
     @ColumnInfo(name = "id")
     public int id;
 
@@ -21,7 +22,7 @@ public class Item {
     public int flyer_id;
 
     @ColumnInfo(name = "print_id")
-    public int print_id;
+    public String print_id;
 
     @ColumnInfo(name = "short_name")
     public String short_name;
@@ -87,7 +88,7 @@ public class Item {
 
         return this.id == that.id
                 && this.flyer_id == that.flyer_id
-                && this.print_id == that.print_id
+                && Objects.equals(this.print_id, that.print_id)
                 && Objects.equals(this.short_name, that.short_name)
                 && Objects.equals(this.brand, that.brand)
                 && Objects.equals(this.name, that.name)

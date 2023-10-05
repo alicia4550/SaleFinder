@@ -47,4 +47,13 @@ public class ItemInstrumentedTest {
         assertTrue(byFlyerId.get(0).equals(item));
     }
 
+    @Test
+    public void testFindByFlyerIdAndName() {
+        Item item = TestUtil.createItem(1234, "Apples");
+        itemDao.insert(item);
+        List<Item> byFlyerId = itemDao.findByFlyerIdAndName(1234, "apple");
+        assertEquals(1, byFlyerId.size());
+        assertTrue(byFlyerId.get(0).equals(item));
+    }
+
 }

@@ -26,6 +26,7 @@
             android:id="@+id/edit_text_item"
             android:layout_width="275dp"
             android:layout_height="50dp"
+            android:inputType="text"
             android:hint="Add item...">
         </EditText>
         <Button

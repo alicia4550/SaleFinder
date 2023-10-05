@@ -22,7 +22,10 @@ public interface FlyerDao {
     @Query("SELECT * FROM flyer WHERE merchant LIKE :merchant")
     List<Flyer> findByMerchant(String merchant);
 
-    @Insert
+    @Query("SELECT id FROM flyer WHERE merchant LIKE :merchant")
+    List<Integer> findFlyerIdByMerchant(String merchant);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Flyer flyer);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

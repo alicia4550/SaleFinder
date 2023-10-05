@@ -27,6 +27,10 @@ public class ItemRepository {
         return itemDao.findByFlyerId(flyerId);
     }
 
+    public List<Item> findByFlyerIdAndName(int flyerId, String name) {
+        return itemDao.findByFlyerIdAndName(flyerId, name);
+    }
+
     public void insert(Item item) {
         itemDao.insert(item);
     }

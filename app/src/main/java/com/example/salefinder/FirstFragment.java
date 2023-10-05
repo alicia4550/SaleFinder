@@ -8,21 +8,25 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salefinder.databinding.FragmentFirstBinding;
-import com.example.salefinder.ui.adapter.AddedItemsAdapter;
-import com.example.salefinder.ui.model.AddedItem;
+import com.example.salefinder.ui.adapter.ListItemsAdapter;
+import com.example.salefinder.ui.model.ListItem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
-    private AddedItemsAdapter addedItemsAdapter;
-    private List<AddedItem> addedItems;
+    private ListItemsAdapter listItemsAdapter;
+    private ArrayList<ListItem> listItems;
 
     @Override
     public View onCreateView(
@@ -39,10 +43,10 @@ public class FirstFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView recyclerAddedItems = (RecyclerView) getView().findViewById(R.id.recycler_added_items);
-        addedItems = new ArrayList<>();
-        addedItemsAdapter = new AddedItemsAdapter(addedItems);
+        listItems = new ArrayList<>();
+        listItemsAdapter = new ListItemsAdapter(listItems);
         // Attach the adapter to the recyclerview to populate items
-        recyclerAddedItems.setAdapter(addedItemsAdapter);
+        recyclerAddedItems.setAdapter(listItemsAdapter);
         // Set layout manager to position the items
         recyclerAddedItems.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -54,8 +58,23 @@ public class FirstFragment extends Fragment {
                 System.out.println(itemText);
                 editText_item.setText("");
 
-                addedItems.add(0, new AddedItem(itemText));
-                addedItemsAdapter.notifyItemInserted(0);
+                listItems.add(0, new ListItem(itemText));
+                listItemsAdapter.notifyItemInserted(0);
+            }
+        });
+
+        binding.searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (int i = 0; i < listItems.size(); i++) {
+                    System.out.println(listItems.get(i));
+                }
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("listItems", (Serializable) listItems);
+                getParentFragmentManager().setFragmentResult("requestKey", bundle);
+
+                NavHostFragment.findNavController(FirstFragment.this)
+                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
         });
 

@@ -1,11 +1,11 @@
 package com.example.salefinder.ui.model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class AddedItem {
+public class ListItem implements Serializable {
     private String name;
 
-    public AddedItem(String name) {
+    public ListItem(String name) {
         this.name = name;
     }
 

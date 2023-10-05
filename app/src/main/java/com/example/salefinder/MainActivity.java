@@ -57,15 +57,15 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Getting flyers from Flipp...");
-                List<Flyer> flyers = WebScraperService.getAllFlyers();
-                flyerRepository.insertAllFlyers(flyers);
-                System.out.println("Saved flyers from Flipp");
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                System.out.println("Getting flyers from Flipp...");
+//                List<Flyer> flyers = WebScraperService.getAllFlyers();
+//                flyerRepository.insertAllFlyers(flyers);
+//                System.out.println("Saved flyers from Flipp");
+//            }
+//        }).start();
 
         setSupportActionBar(binding.toolbar);
 
@@ -73,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        binding.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
     }
 
     @Override

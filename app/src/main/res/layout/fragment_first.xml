@@ -9,18 +9,18 @@
     tools:context=".FirstFragment">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
+        android:layout_gravity="center"
         android:textSize="20sp"
         android:text="What would you like to search for today?">
     </TextView>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginHorizontal="25dp">
+        android:layout_gravity="center">
 
         <EditText
             android:id="@+id/edit_text_item"
@@ -46,6 +46,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <Button
+        android:id="@+id/search_btn"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

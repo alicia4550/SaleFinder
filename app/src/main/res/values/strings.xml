@@ -9,4 +9,9 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="merchant_logo">Merchant logo</string>
+    <string name="add_item">Add item...</string>
+    <string name="search">Search</string>
+    <string name="what_would_you_like_to_search_for_today">What would you like to search for today?</string>
+    <string name="see_sales_below">See sales below:</string>
 </resources>

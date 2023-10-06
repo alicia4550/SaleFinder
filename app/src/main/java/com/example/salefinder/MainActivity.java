@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        listItems = new ArrayList<>();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Saved flyers from Flipp");
 
                 System.out.println("Getting items from flyers...");
-                List<String> merchantNames = Arrays.asList("No Frills", "Walmart");
+                List<String> merchantNames = Arrays.asList("FreshCo", "Food Basics", "No Frills", "Walmart");
                 merchantList = new ArrayList<>();
                 for (String merchantName : merchantNames) {
                     List<Integer> flyerIds = flyerRepository.findFlyerIdByMerchant(merchantName);

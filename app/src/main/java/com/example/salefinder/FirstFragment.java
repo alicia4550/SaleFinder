@@ -3,6 +3,7 @@ package com.example.salefinder;
 import static java.lang.Float.parseFloat;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
     private ListItemsAdapter listItemsAdapter;
-    private ArrayList<ListItem> listItems;
+    private List<ListItem> listItems;
 
     private List<Merchant> merchantList;
 
@@ -49,7 +50,7 @@ public class FirstFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView recyclerAddedItems = (RecyclerView) getView().findViewById(R.id.recycler_added_items);
-        listItems = new ArrayList<>();
+        listItems = ((MainActivity)getActivity()).listItems == null ? new ArrayList<>() : ((MainActivity)getActivity()).listItems;
         listItemsAdapter = new ListItemsAdapter(listItems);
         // Attach the adapter to the recyclerview to populate items
         recyclerAddedItems.setAdapter(listItemsAdapter);
@@ -59,13 +60,7 @@ public class FirstFragment extends Fragment {
         binding.addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText editText_item = (EditText) getView().findViewById(R.id.edit_text_item);
-                String itemText = editText_item.getText().toString();
-                System.out.println(itemText);
-                editText_item.setText("");
-
-                listItems.add(0, new ListItem(itemText));
-                listItemsAdapter.notifyItemInserted(0);
+                addListItem();
             }
         });
 
@@ -92,12 +87,35 @@ public class FirstFragment extends Fragment {
             }
         });
 
+        EditText editText_item = (EditText) getView().findViewById(R.id.edit_text_item);
+        editText_item.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    addListItem();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void addListItem() {
+        EditText editText_item = (EditText) getView().findViewById(R.id.edit_text_item);
+        String itemText = editText_item.getText().toString();
+        System.out.println(itemText);
+        editText_item.setText("");
+
+        listItems.add(0, new ListItem(itemText));
+        listItemsAdapter.notifyItemInserted(0);
     }
 
     public void setMerchantSalesItems() {

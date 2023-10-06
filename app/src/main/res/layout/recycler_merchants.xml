@@ -23,7 +23,7 @@
             android:id="@+id/merchant_logo"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:contentDescription="Merchant logo">
+            android:contentDescription="@string/merchant_logo">
         </ImageView>
 
     </LinearLayout>

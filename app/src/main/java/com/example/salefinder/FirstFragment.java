@@ -72,7 +72,7 @@ public class FirstFragment extends Fragment {
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        setMerchantSalesItems();
+                        ((MainActivity)getActivity()).setMerchantSalesItems();
                     }
                 });
                 thread.start();
@@ -116,25 +116,7 @@ public class FirstFragment extends Fragment {
 
         listItems.add(0, new ListItem(itemText));
         listItemsAdapter.notifyItemInserted(0);
-    }
-
-    public void setMerchantSalesItems() {
-        merchantList = ((MainActivity)getActivity()).merchantList;
-        ItemRepository itemRepository = ((MainActivity)getActivity()).itemRepository;
-        List<ListItem> listItems = ((MainActivity)getActivity()).listItems;
-        for (Merchant merchant : merchantList) {
-            for (int flyerId : merchant.getFlyerIdList()) {
-                for (ListItem listItem : listItems) {
-                    List<Item> itemList = itemRepository.findByFlyerIdAndName(flyerId, listItem.getName());
-
-                    List<SalesItem> salesItemList = itemList.stream()
-                            .map(item -> new SalesItem(item.name, parseFloat(item.price)))
-                            .collect(Collectors.toList());
-
-                    merchant.addSalesItems(salesItemList);
-                }
-            }
-        }
+        ((MainActivity)getActivity()).listItems = listItems;
     }
 
 }

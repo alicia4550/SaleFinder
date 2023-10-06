@@ -1,5 +1,9 @@
 package com.example.salefinder.ui.model;
 
+import com.example.salefinder.entity.Item;
+
+import java.util.Objects;
+
 public class SalesItem {
     private String name;
     private float price;
@@ -15,5 +19,16 @@ public class SalesItem {
 
     public float getPrice() {
         return price;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Item)) {
+            return false;
+        }
+
+        SalesItem that = (SalesItem) other;
+
+        return Objects.equals(this.name, that.name) && this.price == that.price;
     }
 }

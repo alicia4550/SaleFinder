@@ -1,5 +1,7 @@
 package com.example.salefinder;
 
+import static java.lang.Float.parseFloat;
+
 import android.os.Bundle;
 
 import com.example.salefinder.component.DaggerAppComponent;
@@ -22,6 +24,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.salefinder.databinding.ActivityMainBinding;
+import com.example.salefinder.ui.model.SalesItem;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +32,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -124,5 +128,20 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void setMerchantSalesItems() {
+        for (Merchant merchant : merchantList) {
+            for (int flyerId : merchant.getFlyerIdList()) {
+                for (ListItem listItem : listItems) {
+                    List<Item> itemList = itemRepository.findByFlyerIdAndName(flyerId, listItem.getName());
+                    List<SalesItem> salesItemList = itemList.stream()
+                            .map(item -> new SalesItem(item.name, parseFloat(item.price)))
+                            .collect(Collectors.toList());
+
+                    merchant.addSalesItems(salesItemList);
+                }
+            }
+        }
     }
 }

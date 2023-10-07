@@ -68,7 +68,7 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
         textView.setText(merchant.getName());
 
         ImageView imageView = holder.merchantLogoView;
-        System.out.println(merchant.getLogoUrl().replace("http:", "https:"));
+        merchant.getLogoUrl().replace("http:", "https:");
         new ImageLoadTaskService(merchant.getLogoUrl(), imageView).execute();
 
         // Here we have assigned the layout as LinearLayout with vertical orientation

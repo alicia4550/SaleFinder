@@ -8,9 +8,12 @@ public class SalesItem {
     private String name;
     private float price;
 
-    public SalesItem(String name, float price) {
+    private String cutoutUrl;
+
+    public SalesItem(String name, float price, String cutoutUrl) {
         this.name = name;
         this.price = price;
+        this.cutoutUrl = cutoutUrl;
     }
 
     public String getName() {
@@ -21,6 +24,10 @@ public class SalesItem {
         return price;
     }
 
+    public String getCutoutUrl() {
+        return cutoutUrl;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof Item)) {
@@ -29,6 +36,6 @@ public class SalesItem {
 
         SalesItem that = (SalesItem) other;
 
-        return Objects.equals(this.name, that.name) && this.price == that.price;
+        return Objects.equals(this.name, that.name) && this.price == that.price && Objects.equals(this.cutoutUrl, that.cutoutUrl);
     }
 }

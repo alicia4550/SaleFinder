@@ -5,19 +5,34 @@
     android:orientation="horizontal"
     android:paddingVertical="5dp">
 
-    <TextView
-        android:id="@+id/sales_item_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        />
+    <ImageView
+        android:id="@+id/cutout_image"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:contentDescription="@string/cutout_image">
+    </ImageView>
 
-    <TextView
-        android:id="@+id/sales_item_price"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="end"
-        />
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/sales_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:id="@+id/sales_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            />
+
+    </LinearLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

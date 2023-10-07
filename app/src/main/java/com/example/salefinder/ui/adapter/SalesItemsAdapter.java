@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salefinder.R;
+import com.example.salefinder.service.ImageLoadTaskService;
 import com.example.salefinder.ui.model.SalesItem;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class SalesItemsAdapter extends RecyclerView.Adapter<SalesItemsAdapter.Vi
         // for any view that will be set as you render a row
         public TextView nameTextView;
         public TextView priceTextView;
+        public ImageView cutoutImageView;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -29,6 +32,7 @@ public class SalesItemsAdapter extends RecyclerView.Adapter<SalesItemsAdapter.Vi
 
             nameTextView = (TextView) itemView.findViewById(R.id.sales_item_name);
             priceTextView = (TextView) itemView.findViewById(R.id.sales_item_price);
+            cutoutImageView = (ImageView) itemView.findViewById(R.id.cutout_image);
         }
     }
 
@@ -65,6 +69,10 @@ public class SalesItemsAdapter extends RecyclerView.Adapter<SalesItemsAdapter.Vi
 
         TextView priceView = holder.priceTextView;
         priceView.setText("$" + String.format("%.02f", salesItem.getPrice()));
+
+        ImageView imageView = holder.cutoutImageView;
+        salesItem.getCutoutUrl().replace("http:", "https:");
+        new ImageLoadTaskService(salesItem.getCutoutUrl(), imageView).execute();
     }
 
     // Returns the total count of items in the list

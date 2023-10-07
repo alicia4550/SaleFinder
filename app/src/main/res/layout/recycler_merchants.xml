@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingVertical="10dp"
-    android:paddingHorizontal="25dp">
+    android:paddingHorizontal="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,13 +16,15 @@
             android:id="@+id/merchant_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:textSize="30sp"
+            android:textStyle="bold">
         </TextView>
 
         <ImageView
             android:id="@+id/merchant_logo"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:contentDescription="@string/merchant_logo">
         </ImageView>
 

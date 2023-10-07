@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 for (ListItem listItem : listItems) {
                     List<Item> itemList = itemRepository.findByFlyerIdAndName(flyerId, listItem.getName());
                     List<SalesItem> salesItemList = itemList.stream()
-                            .map(item -> new SalesItem(item.name, parseFloat(item.price)))
+                            .map(item -> new SalesItem(item.name, parseFloat(item.price), item.cutout_image_url))
                             .collect(Collectors.toList());
 
                     merchant.addSalesItems(salesItemList);

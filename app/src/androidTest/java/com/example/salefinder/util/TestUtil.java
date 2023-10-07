@@ -55,7 +55,7 @@ public class TestUtil {
     }
 
     public static SalesItem toSalesItem(Item item) {
-        return new SalesItem(item.name, parseFloat(item.price));
+        return new SalesItem(item.name, parseFloat(item.price), item.cutout_image_url);
     }
 }
 

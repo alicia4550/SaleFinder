@@ -40,7 +40,7 @@ public class FlyerInstrumentedTest {
 
     @Test
     public void writeFlyerAndReadInList() throws Exception {
-        Flyer flyer = TestUtil.createFlyer(1234, "Freshco");
+        Flyer flyer = TestUtil.createFlyer(1234, "Freshco", "url");
         flyerDao.insert(flyer);
         List<Flyer> byMerchant = flyerDao.findByMerchant("Freshco");
         assertEquals(1, byMerchant.size());
@@ -49,11 +49,20 @@ public class FlyerInstrumentedTest {
 
     @Test
     public void testFindFlyerIdByMerchant() {
-        Flyer flyer = TestUtil.createFlyer(1234, "Freshco");
+        Flyer flyer = TestUtil.createFlyer(1234, "Freshco", "url");
         flyerDao.insert(flyer);
         List<Integer> ids = flyerDao.findFlyerIdByMerchant("Freshco");
         assertEquals(1, ids.size());
         assertEquals((Integer) 1234, ids.get(0));
+    }
+
+    @Test
+    public void testFindLogoByMerchant() {
+        Flyer flyer = TestUtil.createFlyer(1234, "Freshco", "url");
+        flyerDao.insert(flyer);
+        List<String> logos = flyerDao.findLogoByMerchant("Freshco");
+        assertEquals(1, logos.size());
+        assertEquals("url", logos.get(0));
     }
 
 }

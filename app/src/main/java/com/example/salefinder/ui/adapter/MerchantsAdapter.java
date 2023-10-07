@@ -4,12 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salefinder.R;
+import com.example.salefinder.service.ImageLoadTaskService;
 import com.example.salefinder.ui.model.Merchant;
 
 import java.util.List;
@@ -17,7 +19,9 @@ import java.util.List;
 public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView merchantTextView;
-//        private TextView itemNameTextView;
+
+        private ImageView merchantLogoView;
+
         private RecyclerView salesItemRecyclerView;
 
         public ViewHolder(View itemView)
@@ -25,6 +29,7 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
             super(itemView);
 
             merchantTextView = (TextView) itemView.findViewById(R.id.merchant_name);
+            merchantLogoView = (ImageView) itemView.findViewById(R.id.merchant_logo);
             salesItemRecyclerView = itemView.findViewById(R.id.recycler_sales_items);
         }
     }
@@ -61,6 +66,10 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
         // Set item views based on your views and data model
         TextView textView = holder.merchantTextView;
         textView.setText(merchant.getName());
+
+        ImageView imageView = holder.merchantLogoView;
+        System.out.println(merchant.getLogoUrl().replace("http:", "https:"));
+        new ImageLoadTaskService(merchant.getLogoUrl(), imageView).execute();
 
         // Here we have assigned the layout as LinearLayout with vertical orientation
         LinearLayoutManager layoutManager = new LinearLayoutManager(holder.salesItemRecyclerView.getContext(),

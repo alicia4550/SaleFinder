@@ -8,9 +8,10 @@
     tools:context=".FirstFragment">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center"
         android:textSize="20sp"
         android:text="@string/what_would_you_like_to_search_for_today">
     </TextView>

@@ -25,6 +25,9 @@ public interface FlyerDao {
     @Query("SELECT id FROM flyer WHERE merchant LIKE :merchant")
     List<Integer> findFlyerIdByMerchant(String merchant);
 
+    @Query("SELECT DISTINCT storefront_logo_url FROM flyer WHERE merchant LIKE :merchant")
+    List<String> findLogoByMerchant(String merchant);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Flyer flyer);
 

@@ -13,10 +13,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestUtil {
-    public static Flyer createFlyer(int id, String merchant) {
+    public static Flyer createFlyer(int id, String merchant, String logoUrl) {
         Flyer flyer = new Flyer();
         flyer.id = id;
         flyer.merchant = merchant;
+        flyer.storefront_logo_url = logoUrl;
         return flyer;
     }
 
@@ -36,8 +37,8 @@ public class TestUtil {
     }
 
     public static List<Merchant> createMerchantList() {
-        Merchant merchant1 = new Merchant("merchant1", Arrays.asList(12,34));
-        Merchant merchant2 = new Merchant("merchant2", Arrays.asList(56));
+        Merchant merchant1 = new Merchant("merchant1", "url1", Arrays.asList(12,34));
+        Merchant merchant2 = new Merchant("merchant2", "url2", Arrays.asList(56));
         List<Merchant> merchantList = new ArrayList<>();
         merchantList.add(merchant1);
         merchantList.add(merchant2);

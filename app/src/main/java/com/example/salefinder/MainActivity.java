@@ -81,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 merchantList = new ArrayList<>();
                 for (String merchantName : merchantNames) {
                     List<Integer> flyerIds = flyerRepository.findFlyerIdByMerchant(merchantName);
-                    merchantList.add(new Merchant(merchantName, flyerIds));
+                    String logoUrl = flyerRepository.findLogoByMerchant(merchantName).get(0);
+                    merchantList.add(new Merchant(merchantName, logoUrl, flyerIds));
 
                     for (int flyerId : flyerIds) {
                         List<Item> itemList = WebScraperService.getAllItemsByFlyer(flyerId);

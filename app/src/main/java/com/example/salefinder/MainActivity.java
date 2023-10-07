@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setMerchantSalesItems() {
         for (Merchant merchant : merchantList) {
+            merchant.getSalesItemList().clear();
             for (int flyerId : merchant.getFlyerIdList()) {
                 for (ListItem listItem : listItems) {
                     List<Item> itemList = itemRepository.findByFlyerIdAndName(flyerId, listItem.getName());

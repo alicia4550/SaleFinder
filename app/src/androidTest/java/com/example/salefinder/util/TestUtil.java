@@ -18,6 +18,7 @@ public class TestUtil {
         flyer.id = id;
         flyer.merchant = merchant;
         flyer.storefront_logo_url = logoUrl;
+        flyer.categories_csv = "Groceries";
         return flyer;
     }
 

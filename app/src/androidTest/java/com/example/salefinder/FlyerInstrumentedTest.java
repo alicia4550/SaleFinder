@@ -49,8 +49,12 @@ public class FlyerInstrumentedTest {
 
     @Test
     public void testFindFlyerIdByMerchant() {
-        Flyer flyer = TestUtil.createFlyer(1234, "Freshco", "url");
-        flyerDao.insert(flyer);
+        Flyer flyer1 = TestUtil.createFlyer(1234, "Freshco", "url");
+        Flyer flyer2 = TestUtil.createFlyer(1235, "Freshco", "url");
+        Flyer flyer3 = TestUtil.createFlyer(1236, "No Frills", "url");
+        flyer2.categories_csv = "All Flyers";
+        flyerDao.insert(flyer1);
+        flyerDao.insert(flyer2);
         List<Integer> ids = flyerDao.findFlyerIdByMerchant("Freshco");
         assertEquals(1, ids.size());
         assertEquals((Integer) 1234, ids.get(0));

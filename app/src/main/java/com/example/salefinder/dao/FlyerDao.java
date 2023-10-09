@@ -19,13 +19,13 @@ public interface FlyerDao {
     @Query("SELECT * FROM flyer WHERE id IN (:flyerIds)")
     List<Flyer> loadAllByIds(int[] flyerIds);
 
-    @Query("SELECT * FROM flyer WHERE merchant LIKE :merchant")
+    @Query("SELECT * FROM flyer WHERE merchant LIKE :merchant AND categories_csv LIKE '%' || 'Groceries' || '%'")
     List<Flyer> findByMerchant(String merchant);
 
-    @Query("SELECT id FROM flyer WHERE merchant LIKE :merchant")
+    @Query("SELECT id FROM flyer WHERE merchant LIKE :merchant AND categories_csv LIKE '%' || 'Groceries' || '%'")
     List<Integer> findFlyerIdByMerchant(String merchant);
 
-    @Query("SELECT DISTINCT storefront_logo_url FROM flyer WHERE merchant LIKE :merchant")
+    @Query("SELECT DISTINCT storefront_logo_url FROM flyer WHERE merchant LIKE :merchant  AND categories_csv LIKE '%' || 'Groceries' || '%'")
     List<String> findLogoByMerchant(String merchant);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -69,4 +69,27 @@ public class FlyerInstrumentedTest {
         assertEquals("url", logos.get(0));
     }
 
+    @Test
+    public void testFindAllMerchants() {
+        Flyer flyer1 = TestUtil.createFlyer(1234, "Freshco", "url");
+        Flyer flyer2 = TestUtil.createFlyer(1235, "Food Basics", "url");
+        Flyer flyer3 = TestUtil.createFlyer(1236, "No Frills", "url");
+        Flyer flyer4 = TestUtil.createFlyer(1237, "Walmart", "url");
+        Flyer flyer5 = TestUtil.createFlyer(1238, "Walmart", "url");
+
+        flyerDao.insert(flyer1);
+        flyerDao.insert(flyer2);
+        flyerDao.insert(flyer3);
+        flyerDao.insert(flyer4);
+        flyerDao.insert(flyer5);
+
+        List<String> merchants = flyerDao.findAllMerchants();
+
+        assertEquals(4, merchants.size());
+        assertEquals("Food Basics", merchants.get(0));
+        assertEquals("Freshco", merchants.get(1));
+        assertEquals("No Frills", merchants.get(2));
+        assertEquals("Walmart", merchants.get(3));
+    }
+
 }

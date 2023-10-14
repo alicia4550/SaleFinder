@@ -68,7 +68,8 @@ public class SalesItemsAdapter extends RecyclerView.Adapter<SalesItemsAdapter.Vi
         textView.setText(salesItem.getName());
 
         TextView priceView = holder.priceTextView;
-        priceView.setText("$" + String.format("%.02f", salesItem.getPrice()));
+        if (salesItem.getPrice() != -1)
+            priceView.setText("$" + String.format("%.02f", salesItem.getPrice()));
 
         ImageView imageView = holder.cutoutImageView;
         salesItem.getCutoutUrl().replace("http:", "https:");

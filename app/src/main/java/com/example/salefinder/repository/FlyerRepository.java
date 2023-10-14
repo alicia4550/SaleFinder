@@ -35,6 +35,10 @@ public class FlyerRepository {
         return flyerDao.findLogoByMerchant(merchant);
     }
 
+    public List<String> findAllMerchants() {
+        return flyerDao.findAllMerchants();
+    }
+
     public void insert(Flyer flyer) {
         flyerDao.insert(flyer);
     }

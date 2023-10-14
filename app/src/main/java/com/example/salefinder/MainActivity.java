@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     public List<ListItem> listItems;
 
+    public List<String> allMerchants;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,22 +78,18 @@ public class MainActivity extends AppCompatActivity {
                 }
                 System.out.println("Saved flyers from Flipp");
 
-                System.out.println("Getting items from flyers...");
+                System.out.println("Getting all merchants");
+                allMerchants = flyerRepository.findAllMerchants();
+                allMerchants.add(0, "---");
+                System.out.println("Got all merchants");
+
                 List<String> merchantNames = Arrays.asList("FreshCo", "Food Basics", "No Frills", "Walmart");
                 merchantList = new ArrayList<>();
                 for (String merchantName : merchantNames) {
                     List<Integer> flyerIds = flyerRepository.findFlyerIdByMerchant(merchantName);
                     String logoUrl = flyerRepository.findLogoByMerchant(merchantName).get(0);
                     merchantList.add(new Merchant(merchantName, logoUrl, flyerIds));
-
-                    for (int flyerId : flyerIds) {
-                        List<Item> itemList = WebScraperService.getAllItemsByFlyer(flyerId);
-                        for (Item item : itemList) {
-                            itemRepository.insert(item);
-                        }
-                    }
                 }
-                System.out.println("Saved items from flyers");
             }
         }).start();
 
@@ -132,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setMerchantSalesItems() {
+        getItemsFromFlyers();
+
         for (Merchant merchant : merchantList) {
             merchant.getSalesItemList().clear();
             for (int flyerId : merchant.getFlyerIdList()) {
@@ -145,5 +145,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void getItemsFromFlyers() {
+        System.out.println("Getting items from flyers...");
+        for (Merchant merchant : merchantList) {
+            for (int flyerId : merchant.getFlyerIdList()) {
+                List<Item> itemList = WebScraperService.getAllItemsByFlyer(flyerId);
+                for (Item item : itemList) {
+                    itemRepository.insert(item);
+                }
+            }
+        }
+        System.out.println("Saved items from flyers");
     }
 }

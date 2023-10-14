@@ -28,6 +28,9 @@ public interface FlyerDao {
     @Query("SELECT DISTINCT storefront_logo_url FROM flyer WHERE merchant LIKE :merchant  AND categories_csv LIKE '%' || 'Groceries' || '%'")
     List<String> findLogoByMerchant(String merchant);
 
+    @Query("SELECT DISTINCT merchant FROM flyer WHERE categories_csv LIKE '%' || 'Groceries' || '%' ORDER BY merchant ASC")
+    List<String> findAllMerchants();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Flyer flyer);
 
